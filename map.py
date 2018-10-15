@@ -9,7 +9,7 @@ seems to be playing an old school text-based adventure
 game on his computer. There are corridors leading to the
 south and east. The exit is to the west.""",
 
-    "exits": {"south": "Admins" , "east": "Tutor" , "west": "parking"}
+    "exits": {"south": "Admins" , "east": "Tutor" , "west": "Parking"}
 }
 
 room_admins = {
@@ -20,7 +20,7 @@ room_admins = {
 room. Inside you notice Matt "MJ" John and Simon Jones. They
 ignore you. To the north is the reception.""",
 
-    "exits": {"north": "reception"}
+    "exits": {"north": "Reception"}
 }
 
 room_tutor = {
@@ -42,7 +42,7 @@ room_parking = {
 You can go south to the COMSC reception, or east to the
 general office.""",
 
-    "exits": {"east": "office" , "south": "reception"}
+    "exits": {"east": "Office" , "south": "Reception"}
 }
 
 room_office = {
@@ -54,7 +54,7 @@ room_office = {
 in their eyes. If you go west you can return to the
 Queen's Buildings.""",
 
-    "exits" : {"west": "parking"}
+    "exits" : {"west": "Parking"}
 }
 
 

@@ -21,7 +21,7 @@ def remove_punct(text):
     for ch in text:
         if ch.isalpha():
             text_fixed = text_fixed + ch
-        elif ch.isspace():
+        elif ch.isspace():          
             text_fixed = text_fixed + ch
     user_input = text_fixed
     return user_input
@@ -219,7 +219,7 @@ def move(exits, direction):
     >>> move(rooms["Reception"]["exits"], "west") == rooms["Office"]
     False
     """
-    pass
+    return rooms[exits[direction]]
 
 
 # This is the entry point of our program

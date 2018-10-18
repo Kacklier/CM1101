@@ -53,7 +53,7 @@ general office.""",
 
     "exits": {"east": "Office", "south": "Reception"},
 
-    "items": []
+    "items": [item_key]
 }
 
 room_office = {

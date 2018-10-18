@@ -13,7 +13,7 @@ You wonder why they have printed a suicide hotline number on it?..."""
 item_laptop = {
     "id": "laptop",
 
-    "name": "laptop",
+    "name": "a laptop",
 
     "mass": 3,
 
@@ -60,4 +60,14 @@ item_handbook = {
     "mass": 1,
 
     "description": "This student handbook explains everything. Seriously."
+}
+
+item_key = {
+    "id": "key",
+    
+    "name": "a strange looking key",
+
+    "mass": 4,
+
+    "description": "This key is the key to escaping."
 }

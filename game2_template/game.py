@@ -24,7 +24,13 @@ def list_of_items(items):
     'money, a student handbook, laptop'
 
     """
-    pass
+    item_string = ""
+    for x in items:
+        if x != items[len(items) - 1]:
+            item_string = item_string + x["name"] + ", "
+        else:
+            item_string = item_string + x["name"]
+    return item_string
 
 
 def print_room_items(room):
@@ -49,7 +55,11 @@ def print_room_items(room):
     Note: <BLANKLINE> here means that doctest should expect a blank line.
 
     """
-    pass
+    string_item = ""
+    if len(room["items"]) != 0:
+        print("There is " + list_of_items(room["items"]) + " here.")
+        print("")
+        
 
 
 def print_inventory_items(items):
@@ -62,7 +72,10 @@ def print_inventory_items(items):
     <BLANKLINE>
 
     """
-    pass
+    string_item = ""
+    if len(items) != 0:
+        print("You have " + list_of_items(items) + ".")
+        print("")
 
 
 def print_room(room):
@@ -118,11 +131,9 @@ def print_room(room):
     # Display room description
     print(room["description"])
     print()
+    print_room_items(room)
 
-    #
-    # COMPLETE ME!
-    #
-
+    
 def exit_leads_to(exits, direction):
     """This function takes a dictionary of exits and a direction (a particular
     exit taken from this dictionary). It returns the name of the room into which
@@ -190,10 +201,11 @@ def print_menu(exits, room_items, inv_items):
         # Print the exit name and where it leads to
         print_exit(direction, exit_leads_to(exits, direction))
 
-    #
-    # COMPLETE ME!
-    #
-    
+    for x in range(0, (len(room_items))):
+        print("TAKE " + room_items[x]["id"].upper() + " to take " + room_items[x]["name"] + ".")
+    for y in range(0, (len(inv_items))):
+        print("DROP " + inv_items[y]["id"].upper() + " to drop " + inv_items[y]["name"] + ".")
+        
     print("What do you want to do?")
 
 
@@ -222,7 +234,12 @@ def execute_go(direction):
     (and prints the name of the room into which the player is
     moving). Otherwise, it prints "You cannot go there."
     """
-    pass
+    global current_room
+    exits = current_room['exits']
+    if is_valid_exit(exits, direction) == True:
+        current_room = rooms[current_room['exits'][direction]]
+    else:
+        print("You cannot go there.")
 
 
 def execute_take(item_id):
@@ -231,7 +248,32 @@ def execute_take(item_id):
     there is no such item in the room, this function prints
     "You cannot take that."
     """
-    pass
+    item_collected = False
+    for items in current_room['items']:
+        if items['id'] == item_id:
+            if is_item_too_heavy(inventory, items) == True:
+                
+                inventory.append(items)
+                current_room['items'].remove(items)
+                print(item_id + " has been added to your inventory.")
+                item_collected = True
+            else:
+                print("Item is too heavy to carry in your inventory.")
+    if item_collected == False:
+        print("you cannot take that.")
+
+def inventory_weight(inventory):
+    current_weight = 0
+    for item in inventory:
+        current_weight = current_weight + item['mass']
+    return current_weight
+
+def is_item_too_heavy(inventory, items):
+    current_weight = inventory_weight(inventory)
+    if (current_weight + items['mass']) > 5:
+        return False
+    else:
+        return True
     
 
 def execute_drop(item_id):
@@ -239,7 +281,16 @@ def execute_drop(item_id):
     player's inventory to list of items in the current room. However, if there is
     no such item in the inventory, this function prints "You cannot drop that."
     """
-    pass
+    item_dropped = False
+    for items in inventory:
+        if item_id == items['id']:
+                inventory.remove(items)
+                current_room['items'].append(items)
+                print(item_id + " has been dropped")
+                item_dropped = True
+
+    if item_dropped == False:
+        print("you cannot drop that.")
     
 
 def execute_command(command):
@@ -313,11 +364,17 @@ def move(exits, direction):
     return rooms[exits[direction]]
 
 
+def items_collected_complete():
+    complete = False
+    for item in inventory:
+        if item['id'] == item_key['id']:
+            complete = True
+    return complete
+
 # This is the entry point of our program
 def main():
-
-    # Main game loop
-    while True:
+    complete = False
+    while complete == False:
         # Display game status (room description, inventory etc.)
         print_room(current_room)
         print_inventory_items(inventory)
@@ -325,9 +382,17 @@ def main():
         # Show the menu with possible actions and ask the player
         command = menu(current_room["exits"], current_room["items"], inventory)
 
+        
+        complete = items_collected_complete()
+
+
         # Execute the player's command
         execute_command(command)
 
+
+        if complete == True:
+            print("You have successfully completed the game and have won. This was caused by you collecting the key to escape, congratulations")
+            
 
 
 # Are we being run as a script? If so, run main().
@@ -335,4 +400,33 @@ def main():
 # See https://docs.python.org/3.4/library/__main__.html for explanation
 if __name__ == "__main__":
     main()
+
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

@@ -13,7 +13,7 @@ You wonder why they have printed a suicide hotline number on it?..."""
 item_laptop = {
     "id": "laptop",
 
-    "name": "a laptop",
+    "name": "laptop",
 
     "mass": 3,
 
